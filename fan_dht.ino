@@ -38,10 +38,10 @@ void loop() {
     Serial.print(temp);
     Serial.println(" °C");
 
-    if (temp >= 20 && !fanOn && !manualOverride) {
+    if (temp >= 25 && !fanOn && !manualOverride) {
       fanOn = true;
       turnFanOn();
-      Serial.println("Auto ON: Temperature ≥ 20°C");
+      Serial.println("Auto ON: Temperature ≥ 25°C");
     }
   } else {
     Serial.println("Failed to read temperature");

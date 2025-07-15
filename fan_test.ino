@@ -1,9 +1,14 @@
 /*
   fan_test.ino
-  Standalone motor (fan) functionality test
-  Purpose: Validate motor wiring, L293D driver, and direction control
 
-  System Mindset: Isolate hardware blocks before full integration
+  Purpose: Standalone test script to validate basic motor functionality using
+  the L293D motor driver and Arduino.
+
+  This test ensures corrrect wiring, directional control (IN1/IN2), and PWM-based
+  speed control (ENA) before integrating the motor into a larger embedded system.
+
+  Design approach: follow a modular mindset - isolating and verifying hardware components
+  individually before full system integration
 */
 
 #define ENABLE 5    // L293D ENA pin (used for PWM control of motor speed)

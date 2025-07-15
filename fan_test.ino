@@ -43,7 +43,7 @@ void setup() {
   analogWrite(ENABLE, 0); // Sets speed to 0
   digitalWrite(DIRA, LOW); // Stop both direction pins
   digitalWrite(DIRB, LOW);
-  delay(2000); // Pause for 2 seconds to observe motor stop
+  delay(2000); // Pause for 2 seconds to observe motor stop// 
 
   Serial.println("Motor test complete."); // Final message to confirm the test routine is complete
 }

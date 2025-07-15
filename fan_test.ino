@@ -12,40 +12,42 @@
 
 // Setup function runs once when the Arduino starts up
 void setup() { 
-  Serial.begin(9600);
+  Serial.begin(9600); // Starts the serial monitor at 9600 baud
+
+  // Configures the three motor control pins as outputs
   pinMode(ENABLE, OUTPUT);
   pinMode(DIRA, OUTPUT);
   pinMode(DIRB, OUTPUT);
 
-  Serial.println("Starting motor functionality test...");
-  delay(1000);
+  Serial.println("Starting motor functionality test..."); // Prints the message to the serial monitor
+  delay(1000); // Waits 1 second so the user can see it before the motor starts
 
-  // 1. Run motor at full speed
+  // Test 1: Run motor at full speed forward
   Serial.println("Test 1: Full Speed Forward");
-  digitalWrite(DIRA, HIGH);
-  digitalWrite(DIRB, LOW);
-  analogWrite(ENABLE, 255);  // Full power
-  delay(3000);
+  digitalWrite(DIRA, HIGH); // Sets IN1 pin HIGH
+  digitalWrite(DIRB, LOW); // Sets IN2 pin LOW - motor therefore spins forward
+  analogWrite(ENABLE, 255);  // Apply full speed (PWM 255 = 100%)
+  delay(3000); // Run for 3 seconds
 
-  // 2. Test PWM ramp
+  // Test 2: Ramp up motor speed using PWM
   Serial.println("Test 2: PWM Ramp Up");
   for (int speed = 0; speed <= 255; speed += 51) {
-    analogWrite(ENABLE, speed);
+    analogWrite(ENABLE, speed); // Gradually increase motor speed in steps of 51
     Serial.print("PWM: ");
-    Serial.println(speed);
-    delay(1000);
+    Serial.println(speed); // Print current PWM value
+    delay(1000); // Wait 1 second between steps
   }
 
-  // 3. Stop the motor
+  // Test 3: Stop the motor 
   Serial.println("Test 3: Full Stop");
-  analogWrite(ENABLE, 0);
-  digitalWrite(DIRA, LOW);
+  analogWrite(ENABLE, 0); // Sets speed to 0
+  digitalWrite(DIRA, LOW); // Stop both direction pins
   digitalWrite(DIRB, LOW);
-  delay(2000);
+  delay(2000); // Pause for 2 seconds to observe motor stop
 
-  Serial.println("Motor test complete.");
+  Serial.println("Motor test complete."); // Final message to confirm the test routine is complete
 }
 
 void loop() {
-  // Do nothing — one-time test
+  // Empty loop function becausde this is a single-run diagnostic program, not a continuous control system
 }

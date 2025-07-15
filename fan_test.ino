@@ -6,11 +6,12 @@
   System Mindset: Isolate hardware blocks before full integration
 */
 
-#define ENABLE 5    // L293D ENA (PWM)
-#define DIRA 3      // Motor IN1
-#define DIRB 4      // Motor IN2
+#define ENABLE 5    // L293D ENA pin (used for PWM control of motor speed)
+#define DIRA 3      // L293D IN1 pin (controls motor direction A)
+#define DIRB 4      // L293D IN2 pin (controls motor direction B)
 
-void setup() {
+// Setup function runs once when the Arduino starts up
+void setup() { 
   Serial.begin(9600);
   pinMode(ENABLE, OUTPUT);
   pinMode(DIRA, OUTPUT);

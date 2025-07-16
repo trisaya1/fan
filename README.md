@@ -41,6 +41,6 @@ This project demonstrates logic that can be extedned to several real-world appli
 - Environmental Chambers: Automatically regulate airflow or cooling based on internal temperature, while allowing manual override for safety or testing procedures.
 - Smart Home Devices: Smart fans or HVAC systems that combine automatic control with user input for comfort and energy savings.
 - Server Cooling Systems: Fan systems that activate based on heat levels but allow manual control during maintenance.
-- Verical Farming or Greenhouses: Fan or ventilation control systems that respond to ambient conditions with manual intervention as needed.
+- Vertical Farming or Greenhouses: Fan or ventilation control systems that respond to ambient conditions with manual intervention as needed.
 
 This kind of control logic is a foundation for embedded and IoT products where autonomy and human input must work together reliably.

@@ -11,48 +11,93 @@
   individually before full system integration
 */
 
-#define ENABLE 5    // L293D ENA pin (used for PWM control of motor speed)
-#define DIRA 3      // L293D IN1 pin (controls motor direction A)
-#define DIRB 4      // L293D IN2 pin (controls motor direction B)
+// Pin assignments for motor driver control
+#define ENABLE 5    // PWM control pin connected to ENA on L293D (controls motor speed)
+#define DIRA 3      // IN1 on L293D (motor direction input A)
+#define DIRB 4      // IN2 on L293D (motor direction input B)
 
-// Setup function runs once when the Arduino starts up
-void setup() { 
-  Serial.begin(9600); // Starts the serial monitor at 9600 baud
+void setup() {
+  Serial.begin(9600);           // Start serial communication for debugging and test feedback
+  setupMotorPins();             // Set up all relevant motor control pins as outputs
 
-  // Configures the three motor control pins as outputs
-  pinMode(ENABLE, OUTPUT);
-  pinMode(DIRA, OUTPUT);
-  pinMode(DIRB, OUTPUT);
+  printHeader("Starting motor functionality test...");
+  delay(1000);                  // Short pause to give time for serial monitor to open
 
-  Serial.println("Starting motor functionality test..."); // Prints the message to the serial monitor
-  delay(1000); // Waits 1 second so the user can see it before the motor starts
+  // Test 1: Run the motor at full speed in forward direction
+  printHeader("Test 1: Full Speed Forward");
+  runMotor(255, 3000);          // 255 = full PWM duty cycle, 3000ms = 3 seconds run time
 
-  // Test 1: Run motor at full speed forward
-  Serial.println("Test 1: Full Speed Forward");
-  digitalWrite(DIRA, HIGH); // Sets IN1 pin HIGH
-  digitalWrite(DIRB, LOW); // Sets IN2 pin LOW - motor therefore spins forward
-  analogWrite(ENABLE, 255);  // Apply full speed (PWM 255 = 100%)
-  delay(3000); // Run for 3 seconds
+  // Test 2: Gradually ramp up motor speed using PWM
+  printHeader("Test 2: PWM Ramp Up");
+  rampUpPWM();                  // Increments PWM value in steps to observe motor response
 
-  // Test 2: Ramp up motor speed using PWM
-  Serial.println("Test 2: PWM Ramp Up");
-  for (int speed = 0; speed <= 255; speed += 51) {
-    analogWrite(ENABLE, speed); // Gradually increase motor speed in steps of 51
-    Serial.print("PWM: ");
-    Serial.println(speed); // Print current PWM value
-    delay(1000); // Wait 1 second between steps
-  }
+  // Test 3: Stop the motor completely
+  printHeader("Test 3: Full Stop");
+  stopMotor();                  // Sets all motor control pins to LOW
+  delay(2000);                  // Pause for 2 seconds to confirm motor is stopped
 
-  // Test 3: Stop the motor 
-  Serial.println("Test 3: Full Stop");
-  analogWrite(ENABLE, 0); // Sets speed to 0
-  digitalWrite(DIRA, LOW); // Stop both direction pins
-  digitalWrite(DIRB, LOW);
-  delay(2000); // Pause for 2 seconds to observe motor stop
-
-  Serial.println("Motor test complete."); // Final message to confirm the test routine is complete
+  printHeader("Motor test complete.");
 }
 
 void loop() {
-  // Empty loop function becausde this is a single-run diagnostic program, not a continuous control system
+  // No continuous behavior needed — this is a one-time functional test
+}
+
+// ---------------------------------------------
+// Function: setupMotorPins()
+// Purpose: Configure motor-related pins as OUTPUT
+// ---------------------------------------------
+void setupMotorPins() {
+  pinMode(ENABLE, OUTPUT);
+  pinMode(DIRA, OUTPUT);
+  pinMode(DIRB, OUTPUT);
+}
+
+// -------------------------------------------------
+// Function: runMotor()
+// Purpose: Runs motor at a specific speed and time
+// @param speed: PWM duty cycle (0–255)
+// @param duration: time in milliseconds
+// -------------------------------------------------
+void runMotor(int speed, int duration) {
+  digitalWrite(DIRA, HIGH);       // Set direction: forward
+  digitalWrite(DIRB, LOW);
+  analogWrite(ENABLE, speed);     // Apply PWM speed
+  delay(duration);                // Run motor for specified time
+}
+
+// ---------------------------------------------
+// Function: stopMotor()
+// Purpose: Stops the motor by setting all pins LOW
+// ---------------------------------------------
+void stopMotor() {
+  analogWrite(ENABLE, 0);         // Stop sending PWM
+  digitalWrite(DIRA, LOW);        // Disable direction inputs
+  digitalWrite(DIRB, LOW);
+}
+
+// -------------------------------------------------
+// Function: rampUpPWM()
+// Purpose: Ramps up motor speed using increasing PWM
+//          Useful for testing linear response of motor
+// -------------------------------------------------
+void rampUpPWM() {
+  for (int speed = 0; speed <= 255; speed += 51) {
+    analogWrite(ENABLE, speed);   // Apply current PWM level
+    Serial.print("PWM: ");
+    Serial.println(speed);        // Print current PWM value
+    delay(1000);                  // Wait 1 second between steps
+  }
+}
+
+// --------------------------------------------------------
+// Function: printHeader()
+// Purpose: Prints formatted headers to serial monitor
+//          Makes debugging output more readable
+// @param message: the message to display
+// --------------------------------------------------------
+void printHeader(String message) {
+  Serial.println("--------------------------");
+  Serial.println(message);
+  Serial.println("--------------------------");
 }

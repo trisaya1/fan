@@ -8,7 +8,7 @@ This project is an embedded system that controls a DC fan based on temperature i
 ![Fan on OVERRIDE OFF mode](IMG_3776.jpg)
 
 ## Demo Video
-![Demo Video](https://youtube.com/shorts/8x0t4U0PBOg?si=UJIq7qL--q_3_hsF)
+[![Demo Video](IMG_3774.jpg)](https://youtube.com/shorts/8x0t4U0PBOg?si=UJIq7qL--q_3_hsF)
 
 ## Features
 - Automatic fan activation at >= 25 degrees Celsius

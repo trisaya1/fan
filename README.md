@@ -1,6 +1,10 @@
 # Arduino Remote-Controlled Fan with Temperature Sensor, IR Remote, and LCD display via shift register
 This project is an embedded system that controls a DC fan based on temperature input from a DHT11 sensor, includes manual override via an IR remote, and displays real-time status using an LCD1602 screen connected through a 74HC595 shift register. It demonstrates real-world applications of control logic, sensor interaction, modular software design, and user interaction. 
 
+## Live Photos
+![Fan on AUTO ON mode](IMG_3769.jpg)
+![Fan on OVERRIDE OFF mode](IMG_3770.jpg)
+
 ## Features
 - Automatic fan activation at >= 25 degrees Celsius
 - Manual ON/OFF control via IR remote (NEC protocol)

@@ -11,11 +11,14 @@ This project is an embedded system that controls a DC fan based on temperature i
 
 The codebase is structured modularly and developed in logical stages, reflecting the top-down design and bottom-up implementation approach I took. Various diagnostic tests are included to ease debugging.
 
+Diagnostic tests:
+
 - 'fan_test.ino' - Testing L293D motor driver and fan direction/speed control.
 - 'ir_test.ino' - Confirms IR remote signal decoding
 - 'dht_test.ino' - Verifies standalone functionality of the DHT11 sensor
 - 'lcd_test.ino' - Confirms LCD + 74HC595 communication
 
+System integration:
   
 - 'fan2.ino' - Adds IR remote functionality for manual toggle to the existing fan
 - 'fan_dht.ino' - Adds DHT11 temperature sensor and automatic fan logic to the existing fan + IR receiver

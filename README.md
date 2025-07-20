@@ -9,7 +9,7 @@ This project is an embedded system that controls a DC fan based on temperature i
 
 ## System Architecture
 
-The codebase is structured modularly and developed in logical stages, reflecting the top-down design and bottom-up implementation approach I took. Various diagnostic tests are included to ease debugging.
+The codebase is structured modularly and developed in logical stages, reflecting the top-down design and bottom-up implementation approach I took. Various diagnostic tests are included for individual components to ease debugging.
 
 Diagnostic tests:
 

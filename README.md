@@ -1,28 +1,39 @@
-# Arduino Remote-Controlled Fan with Temperature Sensor
-This project is a basic embedded system that controls a fan based on temperature input from a DHT11 sensor, with manual override via an IR remote. It demonstrates real-world applications of sensor intergation, control logic, and user interaction designed with a top-down modular approach and implemented bottom up.
+# Arduino Remote-Controlled Fan with Temperature Sensor, IR Remote, and LCD diplay via shift register
+This project is an embedded system that controls a DC fan based on temperature input from a DHT11 sensor, includes manual override via an IR remote, and displays real-time status using an LCD1602 screen connected through a 74HC595 shift register. It demonstrates real-world applications of control logi, sensor interaction, modular software design, and user interaction. 
 
 ## Features
 - Automatic fan activation at >= 25 degrees Celsius
-- Manual ON/OFF control using IR remote
-- Lockout logic: once turned off manually, the fan stays off regardless of temperature
+- Manual ON/OFF control via IR remote (NEC protocol)
+- Lockout logic: fan remains OFF after manual override, even if temperature remains above threshold
+- Real-time display of fan status and temperature on an LCD (only 3 Arduino pins used via shift register)
 
 ## System Architecture
 
-The code is modular and was developed in stages: 
+The codebase is structured modularly and developed in logical stages, reflecting the top-down design and bottom-up implementation approach I took. Various diagnostic tests are included to ease debugging.
 
-- 'fan_test.ino' - Testing fan activation using various digital signals
-- 'fan2.ino' - IR receiver integration for manual fan control
-- 'fan_dht.ino' - Final version: adds DHT11 temperature sensor to the existing IR + fan control system
+- 'fan_test.ino' - Testing L293D motor driver and fan direction/speed control.
+- 'ir_test.ino' - Confirms IR remote signal decoding
+- 'dht_test.ino' - Verifies standalone functionality of the DHT11 sensor
+- 'lcd_test.ino' - Confirms LCD + 74HC595 communication
+
+  
+- 'fan2.ino' - Adds IR remote functionality for manual toggle to the existing fan
+- 'fan_dht.ino' - Adds DHT11 temperature sensor and automatic fan logic to the existing fan + IR receiver
+- 'fan_lcd.ino' - Final version: adds LCD1602 with shift register for low pin usage to the existing fan + IR receiver + DHT11 sensor 
 
 ## Hardware Used
 - Elegoo Uno R3 (Arduino-compatible)
 - 9V battery with snap-on connector clip
 - Power supply module (for stable motor voltage)
-- L293D motor driver
-- Fan blade with 3-6V motor
+- L293D motor driver IC
+- 3-6V DC motor with attached fan blade
 - IR receiver + remote (NEC protocol)
-- DHT11 temeprature sensor
+- DHT11 temeprature sensor (10k pull-up resistor between DATA and VCC for stability)
 - Breadboard and jumper wires
+- LCD1602 display
+- 10k potentiometer (for LCD contrast)
+- 74HC595 shift register
+- 220 ohm resistors for A pin on LCD, and for stability between the arduino and the shift register
 
 ## How It Works
 - The system continuously reads the temperaure once per second.

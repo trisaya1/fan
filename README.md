@@ -1,5 +1,5 @@
 # Arduino Remote-Controlled Fan with Temperature Sensor, IR Remote, and LCD diplay via shift register
-This project is an embedded system that controls a DC fan based on temperature input from a DHT11 sensor, includes manual override via an IR remote, and displays real-time status using an LCD1602 screen connected through a 74HC595 shift register. It demonstrates real-world applications of control logi, sensor interaction, modular software design, and user interaction. 
+This project is an embedded system that controls a DC fan based on temperature input from a DHT11 sensor, includes manual override via an IR remote, and displays real-time status using an LCD1602 screen connected through a 74HC595 shift register. It demonstrates real-world applications of control logic, sensor interaction, modular software design, and user interaction. 
 
 ## Features
 - Automatic fan activation at >= 25 degrees Celsius
@@ -36,22 +36,21 @@ The codebase is structured modularly and developed in logical stages, reflecting
 - 220 ohm resistors for A pin on LCD, and for stability between the arduino and the shift register
 
 ## How It Works
-- The system continuously reads the temperaure once per second.
-- If the temperature is 25 degrees Celsius or higher, the fan turns on automatically.
-- If the user presses the IR remote's "Power" button to turn the fan off, the fan remains off even if the temperature stays above the threshold.
-- This manual override is controlled via logic lockout to prevent automatic reactivation.
+- The system reads the temperature every 2 seconds from the DHT11 sensor.
+- If the temperature is 25 degrees Celsius or higher and no manual override is active, the fan turns ON automatically.
+- Pressing the "Power" button on the IR remote toggles the fan and engages/disengages the manual override.
+- This fan remains OFF if manually overridden, regardless of temperature.
+- The LCD displays the current temperature and fan status, updated only when values change to preserve clarity and avoid flicker.
 
 ## Future Improvements
-- Add an LCD1602 dmodule to show the current fan state and temperature instead of through the serial monitor.
-- Combine the LCD with a 74HC595 shift register so that fewer I/O pins on the Arduino is used, improbing pin efficiency and scalability.
+- Add proportional fan speed control based on temperature gradient
+- Integration with WiFi (ESP32) for remote monitoring
 
 ## Real-World Use Cases
 
-This project demonstrates logic that can be extedned to several real-world applications:
+This project's control logic can be extended to a wide range of embedded and IoT applications where autonomy and human input must work together reliably, including:
 
-- Environmental Chambers: Automatically regulate airflow or cooling based on internal temperature, while allowing manual override for safety or testing procedures.
-- Smart Home Devices: Smart fans or HVAC systems that combine automatic control with user input for comfort and energy savings.
-- Server Cooling Systems: Fan systems that activate based on heat levels but allow manual control during maintenance.
-- Vertical Farming or Greenhouses: Fan or ventilation control systems that respond to ambient conditions with manual intervention as needed.
-
-This kind of control logic is a foundation for embedded and IoT products where autonomy and human input must work together reliably.
+- Environmental Chambers: Automated cooling/heating with manual override during testing.
+- Smart HVAC systems: Efficiemt and user-friendly climate control in smart homes.
+- Server Cooling Systems: Reliable fan activation with technician overrides for safety.
+- Greenhouses & Vertical Farming: Temperature-triggered airflow control with optional user input.
